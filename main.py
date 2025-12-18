@@ -3,6 +3,8 @@ from groq import Groq
 from sqlalchemy.orm import Session
 import database # Import module database đã tạo
 from fastapi.middleware.cors import CORSMiddleware
+import os
+from dotenv import load_dotenv
 
 app = FastAPI()
 # Cho phép Frontend (React) gọi vào Backend
@@ -14,8 +16,14 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Dán API Key của Groq vào đây
-client = Groq(api_key="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")
+# 1. Tải các biến từ file .env vào môi trường
+load_dotenv()
+
+# 2. Lấy API Key bằng os.getenv
+api_key = os.getenv("GROQ_API_KEY")
+
+# 3. Khởi tạo client
+client = Groq(api_key=api_key)
 
 # Hàm lấy kết nối DB
 def get_db():
