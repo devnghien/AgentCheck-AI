@@ -15,15 +15,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-# 1. Tải các biến từ file .env vào môi trường
 load_dotenv()
-
-# 2. Lấy API Key bằng os.getenv
-api_key = os.getenv("GROQ_API_KEY")
-
-# 3. Khởi tạo client
-client = Groq(api_key=api_key)
+# Lấy key từ file .env (file này sẽ nằm trong .gitignore)
+client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 # Hàm lấy kết nối DB
 def get_db():
